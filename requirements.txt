@@ -1,0 +1,33 @@
+# Web framework
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg2-binary
+pgvector
+
+# LangChain + LangGraph
+langchain
+langchain-community
+langgraph
+
+# Local CPU LLM (llama.cpp Python binding)
+llama-cpp-python
+
+# Embeddings
+sentence-transformers
+
+# OCR
+pytesseract
+pillow
+
+# PDF generation
+fpdf2
+
+# Word document handling
+python-docx
+
+# Config
+pydantic-settings
+python-dotenv

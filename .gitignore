@@ -1,0 +1,19 @@
+# Secrets
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Generated files
+*.pdf
+*.docx
+output/
