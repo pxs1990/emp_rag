@@ -99,7 +99,7 @@ emp-genai/
 git clone <repo-url>
 cd emp-genai
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+D
 ```
 
 ### 2. Set up PostgreSQL

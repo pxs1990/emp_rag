@@ -12,9 +12,6 @@ langchain
 langchain-community
 langgraph
 
-# Local CPU LLM (llama.cpp Python binding)
-llama-cpp-python
-
 # Embeddings
 sentence-transformers
 

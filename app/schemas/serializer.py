@@ -1,39 +1,37 @@
 from typing import Dict, List, Any
 from app.schemas.response_dto import EmployeeResponseDTO, QuestionAnswerDTO, SubAnswerDTO
-from app.models.employee_model import EmployeeTable
-
-
-def serialize_employee_row(row: EmployeeTable) -> Dict:
-    """Convert a single ORM row to a plain dict (for logging / debug)."""
-    return {
-        "emp_id":          row.emp_id,
-        "chunk_preview":   (row.chunk or "")[:100],
-        "date_created":    row.date_created.isoformat() if row.date_created else None,
-        "speaker":         row.speaker,
-        "start_timestamp": row.start_timestamp,
-        "end_timestamp":   row.end_timestamp,
-        "screenshot_ids":  row.screenshot_ids,
-        "has_embedding":   row.emb is not None,
-    }
 
 
 def build_response_dto(
     emp_id: str,
     questions: List[str],
-    raw_answers: Dict[str, Any],   # { question: {sub_answers:{subq:ans}, combined:str} }
+    raw_answers: Dict[str, Any],
     docx_path: str,
+    version_id: int,
+    version_number: int,
 ) -> EmployeeResponseDTO:
     """
     Assemble the final EmployeeResponseDTO from the LangGraph output.
 
-    raw_answers shape:
-        {
-            "What are the employee's key strengths?": {
-                "sub_answers": {"subq1": "ans1", "subq2": "ans2", "subq3": "ans3"},
-                "combined":    "Synthesised answer text ...",
-            },
-            ...
-        }
+    Parameters
+    ----------
+    emp_id         : Employee identifier
+    questions      : List of 7 review questions
+    raw_answers    : LangGraph output with shape:
+                     {
+                         "question_text": {
+                             "sub_answers": {"subq1": "ans1", "subq2": "ans2", "subq3": "ans3"},
+                             "combined":    "Synthesised answer text ...",
+                         },
+                         ...
+                     }
+    docx_path      : Path to generated docx file
+    version_id     : Database version_id (for tracking)
+    version_number : Version number for this employee
+
+    Returns
+    -------
+    EmployeeResponseDTO with all fields populated
     """
     answers: Dict[str, QuestionAnswerDTO] = {}
 
@@ -53,4 +51,10 @@ def build_response_dto(
             combined_answer=combined,
         )
 
-    return EmployeeResponseDTO(emp_id=emp_id, answers=answers, docx_path=docx_path)
+    return EmployeeResponseDTO(
+        emp_id=emp_id,
+        version_id=version_id,
+        version=version_number,
+        answers=answers,
+        docx_path=docx_path,
+    )
