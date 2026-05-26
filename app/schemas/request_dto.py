@@ -21,7 +21,7 @@ class EmployeeRequestDTO(BaseModel):
     screenshot_paths: List[str] = Field(..., min_length=1, example=["data/emp001_screen1.png"])
     transcript_path: str = Field(..., example="data/emp001_zoom_transcript.txt")
 
-    class Config:
+    class Config:# shows an example in the OpenAPI docs like swagger
         json_schema_extra = {
             "example": {
                 "emp_id": "EMP-001",

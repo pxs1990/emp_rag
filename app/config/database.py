@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 engine = create_engine(
     settings.DB_URL,
-    pool_pre_ping=True,   # drop stale connections before use
+    pool_pre_ping=True,   # drops the dead connections if exists
     pool_size=10,
     max_overflow=20,
 )
