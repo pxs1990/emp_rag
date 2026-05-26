@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from app.config.database import init_db
-from app.api.employee_routes import router
+from employee_routes import router
 import uvicorn
 
 logging.basicConfig(
@@ -27,7 +27,6 @@ async def lifespan(app: FastAPI):
         raise
     
     yield
-    
     # Shutdown
     logger.info("emp-genai API shut down.")
 
